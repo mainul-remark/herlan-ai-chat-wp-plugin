@@ -56,45 +56,19 @@
         }
     }
 
-    // function sendMessage(message) {
-    //     appendMessage('user', message);
-    //     $('#herlan-ai-input').val('');
-    //     showTyping();
-    //
-    //     $.ajax({
-    //         url: HerlanAI.ajax_url,
-    //         method: 'POST',
-    //         contentType: 'application/json',
-    //         data: JSON.stringify({
-    //             product_id: productId,
-    //             session_id: sessionId,
-    //             message: message
-    //         }),
-    //         headers: { 'X-WP-Nonce': HerlanAI.nonce },
-    //         success: function(res) {
-    //             removeTyping();
-    //             appendMessage('ai', res.reply);
-    //         },
-    //         error: function() {
-    //             removeTyping();
-    //             appendMessage('ai', "I'm sorry, I'm having trouble connecting right now. Please try again in a moment.");
-    //         }
-    //     });
-    // }
-
     function sendMessage(message) {
         appendMessage('user', message);
         $('#herlan-ai-input').val('');
 
         // Create empty AI message bubble to stream into
-        const $bubble = $('');
+        const $bubble = $('<div class="herlan-ai-msg ai"></div>');
         $('#herlan-ai-messages').append($bubble);
         scrollToBottom();
 
         // Show typing dots briefly then start stream
-        $bubble.html('');
+        $bubble.html('<span class="herlan-typing"><span></span><span></span><span></span></span>');
 
-        fetch(HerlanAI.ajax_url.replace('/message', '/stream'), {
+        fetch(HerlanAI.stream_url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -143,13 +117,13 @@
 
     function appendMessage(role, text) {
         const cls  = role === 'user' ? 'user' : 'ai';
-        const $msg = $('').text(text);
+        const $msg = $('<div class="herlan-ai-msg ' + cls + '"></div>').text(text);
         $('#herlan-ai-messages').append($msg);
         scrollToBottom();
     }
 
     function showTyping() {
-        const $typing = $('');
+        const $typing = $('<div class="herlan-ai-msg ai herlan-typing" id="herlan-typing-indicator"><span></span><span></span><span></span></div>');
         $('#herlan-ai-messages').append($typing);
         scrollToBottom();
     }

@@ -38,6 +38,7 @@ class Herlan_AI_Chat {
 
         wp_localize_script( 'herlan-ai-chat', 'HerlanAI', [
             'ajax_url'   => rest_url( 'ai-chat/v1/message' ),
+            'stream_url' => rest_url( 'ai-chat/v1/stream' ),
             'nonce'      => wp_create_nonce( 'wp_rest' ),
             'product_id' => get_the_ID(),
         ]);
@@ -49,21 +50,11 @@ class Herlan_AI_Chat {
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
             </svg>
-            Ask Bella — Your Beauty Consultant
+            Ask Herlan Agent — Your Beauty Consultant
         </button>';
     }
 
     public function inject_chat_modal() {
-        if ( ! is_product() ) return;
-        include HERLAN_AI_CHAT_DIR . 'templates/modal.php';
-    }
-}
-
-new Herlan_AI_Chat();
-
-// Create modal template inline for simplicity
-if ( ! function_exists( 'herlan_ai_modal_template' ) ) {
-    add_action( 'wp_footer', function() {
         if ( ! is_product() ) return;
         ?>
         <div id="herlan-ai-modal" class="herlan-ai-modal" style="display:none;">
@@ -71,14 +62,14 @@ if ( ! function_exists( 'herlan_ai_modal_template' ) ) {
                 <div class="herlan-ai-header">
                     <div class="herlan-ai-avatar">B</div>
                     <div>
-                        <div class="herlan-ai-name">Bella</div>
+                        <div class="herlan-ai-name">Herlan Agent</div>
                         <div class="herlan-ai-status">Beauty Consultant</div>
                     </div>
                     <button id="herlan-ai-close" class="herlan-ai-close">&times;</button>
                 </div>
                 <div id="herlan-ai-messages" class="herlan-ai-messages">
                     <div class="herlan-ai-msg ai">
-                        Hi! I'm Bella, your personal beauty consultant. I know everything about this product — ask me anything! &#128149;
+                        Hi! I'm Herlan Agent, your personal beauty consultant. I know everything about this product — ask me anything! &#128149;
                     </div>
                 </div>
                 <div id="herlan-ai-chips" class="herlan-ai-chips">
@@ -99,5 +90,7 @@ if ( ! function_exists( 'herlan_ai_modal_template' ) ) {
             </div>
         </div>
         <?php
-    }, 99 );
+    }
 }
+
+new Herlan_AI_Chat();
