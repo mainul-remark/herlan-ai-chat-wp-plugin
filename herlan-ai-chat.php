@@ -77,6 +77,10 @@ class Herlan_AI_Chat {
                     <button class="herlan-chip">Good for sensitive skin?</button>
                     <button class="herlan-chip">How do I use it?</button>
                     <button class="herlan-chip">Is it worth the price?</button>
+                    <button class="herlan-chip">উপাদান কী কী?</button>
+                    <button class="herlan-chip">সংবেদনশীল ত্বকে ভালো?</button>
+                    <button class="herlan-chip">কীভাবে ব্যবহার করবো?</button>
+                    <button class="herlan-chip">দামে কি ভালো?</button>
                 </div>
                 <div class="herlan-ai-input-area">
                     <input type="text" id="herlan-ai-input" placeholder="Ask me about this product..." />
